@@ -27,7 +27,7 @@ source("coreGenerationLibrary.R")
 source("helperFunctions.R")
 
 events <- c(event)
-slicing_dir <- "./resources/slicingOutput/prev_run_7_28_18_4/"
+slicing_dir <- "./resources/slicingOutput/prev_run_7_28_18_5/"
 #
 # Get CORE input
 #

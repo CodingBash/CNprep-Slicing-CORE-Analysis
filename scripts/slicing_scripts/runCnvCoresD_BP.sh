@@ -11,5 +11,5 @@ module load RBio/3.6.0
 
 pwd
 date
-Rscript ../slicingCoreGenerationHPCJobBP.R D output/DcoreTableBP_slicing.csv output/DnewCOREobjBP_slicing.rds
+Rscript ../slicingCoreGenerationHPCJobBP.R D output/DcoreTableBP_slicing2.csv output/DnewCOREobjBP_slicing2.rds
 date
