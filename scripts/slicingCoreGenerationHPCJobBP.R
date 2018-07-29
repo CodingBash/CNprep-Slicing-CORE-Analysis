@@ -27,13 +27,14 @@ source("coreGenerationLibrary.R")
 source("helperFunctions.R")
 
 events <- c(event)
+slicing_dir <- "./resources/slicingOutput/prev_run_7_28_18_4/"
 #
 # Get CORE input
 #
 cd_slicing_core()
 samples <- load_samples(classes = c("T", "M", "F"), sampleList = "./resources/sampleList.csv")
 chromosomeSizes <- readRDS("./resources/chromosomeSizes.rds")
-inputCORESegments <- loadSlicingRegions(dir =  "./resources/slicingOutput/prev_run_7_28_18_4/", samples = samples, events = events, silent = TRUE)
+inputCORESegments <- loadSlicingRegions(dir =  slicing_dir, samples = samples, events = events, silent = TRUE)
 inputCOREBoundaries <- generateInputCOREBoundaries(chromosomeSizes)
 print("Prepared all inputs - now running CORE")
 
