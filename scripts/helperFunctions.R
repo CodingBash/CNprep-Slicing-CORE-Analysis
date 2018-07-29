@@ -422,19 +422,24 @@ retrieveSeginput <- function(sample, dir = "segInput/"){
 #
 # Retrieve slicing regions
 #
-loadSlicingRegions <- function(dir, samples, events, silent = FALSE){
+loadSlicingRegions <- function(dir, samples, events, probes = FALSE, silent = FALSE){
   slicingRegions <- data.frame(stringsAsFactors = FALSE)
   for(sample in samples){
     for(event in events){
       try({
-        slicingInput <- read.table(paste0(dir, sample, "_slicingGenome", event, ".bed"), header = FALSE, sep = "\t", stringsAsFactors = FALSE)
+        if(probes == TRUE){
+          slicingInput <- read.table(paste0(dir, sample, "_slicingProbes", event, ".bed"), header = FALSE, sep = "\t", stringsAsFactors = FALSE)
+        } else if(probes == FALSE){
+          slicingInput <- read.table(paste0(dir, sample, "_slicingGenome", event, ".bed"), header = FALSE, sep = "\t", stringsAsFactors = FALSE)  
+        }
         slicingRegions <- rbind(slicingRegions, slicingInput)
       }, silent = TRUE)
     }
   }
   slicingRegions[[1]] <- as.numeric(substr(slicingRegions[[1]], 4, nchar(slicingRegions[[1]]))) # Convert from 'char#' to #
-  
-  slicingRegions <- chromsomeToAbsoluteBPConversion(slicingRegions, chromosomeSizes)
+  if(probes == FALSE){
+    slicingRegions <- chromsomeToAbsoluteBPConversion(slicingRegions, chromosomeSizes)  
+  }  
   names(slicingRegions) <- c("chrom", "start", "end", "value")
   return(slicingRegions)
 }
