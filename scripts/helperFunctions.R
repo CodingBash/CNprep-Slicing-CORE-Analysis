@@ -427,13 +427,15 @@ loadSlicingRegions <- function(dir, samples, events, probes = FALSE, silent = FA
   for(sample in samples){
     for(event in events){
       try({
+        slicingInput <- NA
         if(probes == TRUE){
           slicingInput <- read.table(paste0(dir, sample, "_slicingProbes", event, ".bed"), header = FALSE, sep = "\t", stringsAsFactors = FALSE)
         } else if(probes == FALSE){
           slicingInput <- read.table(paste0(dir, sample, "_slicingGenome", event, ".bed"), header = FALSE, sep = "\t", stringsAsFactors = FALSE)  
+          
         }
         slicingRegions <- rbind(slicingRegions, slicingInput)
-      }, silent = TRUE)
+      }, silent = silent)
     }
   }
   slicingRegions[[1]] <- as.numeric(substr(slicingRegions[[1]], 4, nchar(slicingRegions[[1]]))) # Convert from 'char#' to #
