@@ -47,6 +47,16 @@ visualizeCores <- function(event, output, dirs, chromosomeSizes) {
 }
 
 
-for(event in events) visualizeCores(event, output, dirs, chromosomeSizes)
+options(repr.plot.width=10, repr.plot.height=3)
+events <- c("D")
+dirs <- c("prev_run1_1")
+for(event in events){
+    visualizeCores(event, output, dirs, chromosomeSizes)
+}
+
+dirs <- c("prev_run_7_28_2018_x_1")
+for(event in events){
+    visualizeCores(event, output, dirs, chromosomeSizes)
+}
 
 
