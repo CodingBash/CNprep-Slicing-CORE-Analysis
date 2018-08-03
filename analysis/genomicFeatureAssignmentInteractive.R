@@ -13,30 +13,24 @@ samples <- load_samples(classes = c("T","F", "M"), sampleList = "./resources/sam
 #
 # Retrieve CORE features
 #
-Acores <- retrieveCores("./output/selectedCores/AcoresBP.bed") # BED file of amplification recurrent regions
-Dcores <- retrieveCores("./output/selectedCores/DcoresBP.bed") # BED file of deletion recurrent regions
-ADcores <- retrieveCores("./output/selectedCores/ADcoresBP.bed") # BED file of both recurrent regions
+Acores <- retrieveCores("./output/coresResults/prev_run_8_2_2018_2/selectedCores/AselectedCoresBP.bed") # BED file of amplification recurrent regions
+Dcores <- retrieveCores("./output/coresResults/prev_run_8_2_2018_2/selectedCores/DselectedCoresBP.bed") # BED file of deletion recurrent regions
+ADcores <- retrieveCores("./output/coresResults/prev_run_8_2_2018_2/selectedCores/ADselectedCoresBP.bed") # BED file of both recurrent regions
 
 aucData <- readRDS("./resources/listSampleTESAUC.RDS")
 
 
-#
-# Retrieve training set
-# TODO: HERE
-setwd("~/Git-Projects/Git-Research-Projects/FACETS_write_files/")
-
-reference <- "hN31"
-sample_dir <- "./output/FACETS_Reference_hN31_7_28_18_2/"
 
 #
 # TODO: NEED TO UPDATE RETRIEVE TRAINING SET - SPECIFICALLY HOW IT DEFINES THE SCORES
 #
-training_set <- retrieveTrainingSet(samples, Acores, Dcores, sample_subdir = "/",  reference = reference, binDir = sample_dir)
+training_set <- retrieveTrainingSet(samples, Acores, Dcores, organoidSlicesFile = "./resources/slicingOutput/table/prev_run_8_2_2018_3/organoidSlices.txt")
 training_set$matrix <- attachLabelsToSet(matrix_training_set = training_set$matrix, labelData = aucData)
 
 visualizeUnclusteredHeatmap(training_set$melted)
+# TODO: Deal with 0 variance issue
 hc <- clusterTrainingSet(training_set$melted, visualize = TRUE)
 plot(hc)
 
 cd_local("mlOutput")
-write.csv(training_set$matrix, file ="coreTrainingSet_7_26_2018_1.csv")
+write.csv(training_set$matrix, file ="coreTrainingSet_8_3_2018_1.csv")
