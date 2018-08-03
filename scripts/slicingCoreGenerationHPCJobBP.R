@@ -27,7 +27,7 @@ source("coreGenerationLibrary.R")
 source("helperFunctions.R")
 
 events <- c(event)
-slicing_dir <- "./resources/slicingOutput/prev_run_7_28_18_5/"
+slicing_dir <- "./resources/slicingOutput/prev_run_8_2_2018_2/"
 #
 # Get CORE input
 #
@@ -41,7 +41,7 @@ print("Prepared all inputs - now running CORE")
 #
 # Run CORE
 #
-outputCOREobj <- runCORE(inputCORESegments, inputCOREBoundaries, distrib="Grid", maxmark=500, nshuffle=500, seedme=123, njobs=4)
+outputCOREobj <- runCORE(inputCORESegments, inputCOREBoundaries, distrib="Grid", maxmark=150, nshuffle=500, seedme=123, njobs=8)
 print("CORE run complete")
 
 #
